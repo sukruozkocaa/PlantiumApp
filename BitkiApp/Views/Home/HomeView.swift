@@ -13,14 +13,22 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    headerSection
-                    quickActionsSection
-                    plantsSection
+            VStack(spacing: 0) {
+                PlantiumNavBar(
+                    onSettings: { showSettings = true },
+                    onPremium: { showSubscription = true }
+                )
+
+                ScrollView {
+                    VStack(spacing: 24) {
+                        headerSection
+                        quickActionsSection
+                        plantsSection
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+                    .padding(.bottom, 32)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 32)
             }
             .background(PlantiumTheme.background)
             .navigationBarHidden(true)
@@ -48,32 +56,10 @@ struct HomeView: View {
 
     private var headerSection: some View {
         VStack(spacing: 16) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Plantium")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
-                        .foregroundStyle(PlantiumTheme.textPrimary)
-
-                    Text(greetingText)
-                        .font(.subheadline)
-                        .foregroundStyle(PlantiumTheme.textSecondary)
-                }
-
-                Spacer()
-
-                Button {
-                    showSettings = true
-                } label: {
-                    Image(systemName: "gearshape.fill")
-                        .font(.title3)
-                        .foregroundStyle(PlantiumTheme.textSecondary)
-                        .frame(width: 44, height: 44)
-                        .background(Color.white)
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 2)
-                }
-            }
-            .padding(.top, 8)
+            Text(greetingText)
+                .font(.subheadline)
+                .foregroundStyle(PlantiumTheme.textSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
             subscribeBanner
         }

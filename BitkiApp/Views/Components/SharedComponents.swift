@@ -148,3 +148,104 @@ struct HealthScoreBadge: View {
             .clipShape(Circle())
     }
 }
+
+struct PlantiumNavBar: View {
+    let onSettings: () -> Void
+    let onPremium: () -> Void
+
+    var body: some View {
+        ZStack {
+            HStack {
+                settingsButton
+                Spacer()
+                premiumButton
+            }
+
+            brandMark
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 8)
+        .padding(.bottom, 12)
+        .background {
+            ZStack(alignment: .bottom) {
+                Rectangle()
+                    .fill(.background)
+                    .background(.ultraThinMaterial)
+
+                LinearGradient(
+                    colors: [
+                        PlantiumTheme.primaryGreen.opacity(0.08),
+                        PlantiumTheme.accentGold.opacity(0.04),
+                        Color.clear,
+                    ],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+                .frame(height: 1)
+            }
+            .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 4)
+            .ignoresSafeArea(edges: .top)
+        }
+    }
+
+    private var brandMark: some View {
+        HStack(spacing: 7) {
+            ZStack {
+                Circle()
+                    .fill(PlantiumTheme.primaryGreen.opacity(0.12))
+                    .frame(width: 28, height: 28)
+
+                Image(systemName: "leaf.fill")
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundStyle(PlantiumTheme.primaryGreen)
+            }
+
+            Text("Plantium")
+                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                .foregroundStyle(PlantiumTheme.textPrimary)
+        }
+    }
+
+    private var settingsButton: some View {
+        Button(action: onSettings) {
+            Image(systemName: "gearshape.fill")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(PlantiumTheme.textSecondary)
+                .frame(width: 42, height: 42)
+                .background(Color.white)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color.black.opacity(0.05), lineWidth: 1)
+                )
+                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 3)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var premiumButton: some View {
+        Button(action: onPremium) {
+            Image(systemName: "crown.fill")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 42, height: 42)
+                .background(
+                    LinearGradient(
+                        colors: [
+                            PlantiumTheme.accentGold,
+                            Color(red: 0.75, green: 0.60, blue: 0.30),
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(.white.opacity(0.35), lineWidth: 1)
+                )
+                .shadow(color: PlantiumTheme.accentGold.opacity(0.45), radius: 10, x: 0, y: 4)
+        }
+        .buttonStyle(.plain)
+    }
+}
