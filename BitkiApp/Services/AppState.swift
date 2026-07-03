@@ -21,7 +21,9 @@ final class AppState {
 
     func completeOnboarding() {
         hasCompletedOnboarding = true
-        withAnimation(.easeInOut(duration: 0.5)) {
+        var transaction = Transaction()
+        transaction.disablesAnimations = true
+        withTransaction(transaction) {
             phase = .main
         }
     }

@@ -21,7 +21,7 @@ struct RootView: View {
 
             case .main:
                 HomeView()
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .transition(.identity)
             }
         }
         .animation(.easeInOut(duration: 0.5), value: appState.phase)
